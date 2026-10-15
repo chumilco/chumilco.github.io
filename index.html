@@ -1,26 +1,319 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi texto</title>
-  <style>
-    body {
-      font-family: Georgia, serif;
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 0 16px;
-      line-height: 1.6;
-      color: #222;
-      background: #fdfaf3;
-    }
-    h1 { color: #8b2e2e; text-align: center; }
-    .destacado { color: #1a5fb4; font-weight: bold; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lectura: La Importancia de la Lectura en la Vida Cotidiana — rdrr.io</title>
+<style>
+  :root {
+    --nav: #263746;
+    --nav-border: #1c2b37;
+    --link: #3979b7;
+    --green: #20b446;
+    --green-dark: #17a53b;
+    --border: #d7d7d7;
+    --doc-border: #c6d7bb;
+    --doc-bg: #fbfef5;
+    --text: #333;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--text);
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+ 
+  .topbar {
+    height: 41px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: stretch;
+    background: var(--nav);
+    border-bottom: 1px solid var(--nav-border);
+    color: #f3f5f6;
+    white-space: nowrap;
+  }
+  .brand {
+    width: 96px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-right: 1px solid rgba(255,255,255,.08);
+    color: #f0f2f4;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.4px;
+  }
+  .navlink {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 17px;
+    color: #e5e9ec;
+    border-right: 1px solid rgba(255,255,255,.07);
+    font-size: 14px;
+  }
+  .navlink:nth-of-type(2) { width: 177px; }
+  .navlink:nth-of-type(3) { width: 165px; }
+  .navlink:nth-of-type(4) { width: 200px; background: rgba(255,255,255,.06); }
+  .navicon { font-size: 17px; line-height: 1; color: #dce2e7; }
+  .top-spacer { flex: 1; min-width: 10px; }
+  .search {
+    display: flex;
+    align-items: center;
+    padding: 2px 16px 2px 0;
+    min-width: 280px;
+  }
+  .search input {
+    height: 36px;
+    min-width: 0;
+    width: 240px;
+    padding: 0 13px;
+    border: 1px solid #d1d7dc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font: 14px Arial, sans-serif;
+  }
+  .search input::placeholder { color: #aab0b6; }
+  .search button {
+    height: 36px;
+    width: 40px;
+    border: 0;
+    border-radius: 0 4px 4px 0;
+    background: #20b446;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+  }
+  .breadcrumb {
+    height: 32px;
+    padding: 7px 13px;
+    background: #f4f5f6;
+    border-bottom: 1px solid #e1e1e1;
+    color: #777;
+    font-size: 14px;
+  }
+  .breadcrumb span { color: #a0a0a0; padding: 0 5px; }
+  .page {
+    width: min(1166px, calc(100% - 40px));
+    margin: 11px auto 42px;
+  }
+  .top-panels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    align-items: start;
+  }
+  .intro, .quicklinks {
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    background: #f5f6f7;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  }
+  .intro {
+    min-height: 102px;
+    padding: 12px 15px 10px;
+  }
+  .intro h1 {
+    margin: 0 0 1px;
+    font-size: 29px;
+    line-height: 1.1;
+    font-weight: 700;
+    color: #292929;
+  }
+  .intro p {
+    margin: 3px 0 0;
+    color: #666;
+    font-size: 17px;
+    line-height: 1.25;
+  }
+  .quicklinks {
+    min-height: 121px;
+    margin-top: 4px;
+    padding: 15px 15px 10px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .editor-area {
+    width: 74.3%;
+    max-width: 870px;
+    min-width: 0;
+    margin-top: 20px;
+  }
+  .code-editor {
+    display: block;
+    width: 100%;
+    height: 230px;
+    padding: 12px;
+    resize: both;
+    border: 1px solid #b7cfdf;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.04);
+    background: #fff;
+    color: #222;
+    font: 14px/1.45 Consolas, "Courier New", monospace;
+  }
+  .code-editor:focus { border-color: #8db8d3; }
+  .run-button {
+    display: block;
+    width: 100%;
+    height: 53px;
+    margin-top: 15px;
+    border: 1px solid #27b34a;
+    border-radius: 4px;
+    background: var(--green);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .run-button:hover { background: var(--green-dark); }
+  .privacy {
+    margin-top: 2px;
+    color: #111;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .result-box {
+    width: 97.5%;
+    margin: 45px auto 0;
+    padding: 13px 13px 25px;
+    border: 1px solid var(--doc-border);
+    border-radius: 3px;
+    background: var(--doc-bg);
+    box-shadow: 0 0 1px rgba(50,80,30,.15);
+    color: #272727;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 13px;
+    line-height: 1.58;
+    overflow-wrap: anywhere;
+  }
+  .doc-ident {
+    display: grid;
+    grid-template-columns: 160px 220px auto;
+    gap: 0;
+    margin: 0 0 20px;
+    white-space: nowrap;
+  }
+  .doc-title {
+    margin: 0 0 23px;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .doc-label {
+    margin: 0 0 20px;
+  }
+  .doc-paragraph {
+    max-width: 77ch;
+    margin: 0 0 18px;
+    padding-left: 4ch;
+    white-space: normal;
+    line-height: 1.58;
+  }
+  .doc-subheading { margin: 21px 0 14px; }
+  .doc-end { margin: 3px 0 0; }
+  .feedback {
+    position: fixed;
+    right: 33px;
+    bottom: 14px;
+    z-index: 6;
+    padding: 11px 15px;
+    background: #2789c8;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+  .feedback span { margin-right: 19px; }
+ 
+  @media (max-width: 850px) {
+    .topbar { overflow-x: auto; }
+    .top-spacer { flex: 0 0 10px; }
+    .search { min-width: 250px; }
+    .search input { width: 205px; }
+    .page { width: calc(100% - 24px); }
+    .top-panels { grid-template-columns: 1fr; gap: 12px; }
+    .quicklinks { margin-top: 0; min-height: auto; }
+    .editor-area { width: 100%; max-width: none; margin-top: 18px; }
+    .result-box { width: 100%; margin-top: 32px; }
+    .doc-ident { grid-template-columns: 105px 150px auto; white-space: normal; }
+    .feedback { right: 12px; bottom: 10px; }
+  }
+</style>
 </head>
 <body>
-  <h1>Título de mi texto</h1>
-  <p>Este es un párrafo normal.</p>
-  <p class="destacado">Este párrafo sale azul y en negrita.</p>
+  <header class="topbar">
+    <a class="brand" href="#inicio">rdrr.io</a>
+    <a class="navlink" href="#paquetes"><span class="navicon">⌕</span> Find an R package</a>
+    <a class="navlink" href="#documentacion"><span class="navicon">▤</span> R language docs</a>
+    <a class="navlink" href="#editor"><span class="navicon">▶</span> Run R in your browser</a>
+    <div class="top-spacer"></div>
+    <form class="search" onsubmit="event.preventDefault(); document.getElementById('documentacion').scrollIntoView({behavior:'smooth'});">
+      <input type="search" placeholder="packages, doc text, code..." aria-label="Buscar paquetes, documentación o código">
+      <button type="submit" aria-label="Buscar">⌕</button>
+    </form>
+  </header>
+  <div class="breadcrumb"><a href="#inicio">Home</a><span>/</span><a href="#snippets">Snippets</a></div>
+ 
+  <main class="page" id="inicio">
+    <section class="top-panels">
+      <div class="intro" id="snippets">
+        <h1>Snippets</h1>
+        <p>Run any R code you like. There are <em>over nineteen thousand</em> R packages preloaded.</p>
+      </div>
+      <aside class="quicklinks">
+        <a href="#privacidad">Privacy information</a>
+        <a href="#incorporar">Embed this on your website</a>
+        <a href="#paquetes">List of installed packages</a>
+      </aside>
+    </section>
+ 
+    <section class="editor-area" id="editor" aria-label="Editor de código R">
+      <textarea class="code-editor" aria-label="Escribe código R"></textarea>
+      <button class="run-button" type="button" onclick="document.getElementById('documentacion').scrollIntoView({behavior:'smooth'});">Run (Ctrl-Enter)</button>
+      <div class="privacy" id="privacidad">Any scripts or data that you put into this service are public.</div>
+    </section>
+ 
+    <section class="result-box" id="documentacion" aria-label="Documentación de lectura">
+      <div class="doc-ident"><span>lectura</span><span>package:lectura</span><span>R Documentation</span></div>
+      <h2 class="doc-title">La Importancia de la Lectura en la Vida Cotidiana</h2>
+      <div class="doc-label">Description:</div>
+ 
+      <p class="doc-paragraph">Leer es una de las actividades más antiguas y valiosas que ha desarrollado el ser humano. Desde las primeras inscripciones en piedra hasta las pantallas de los teléfonos actuales, la escritura y la lectura han permitido que las ideas viajen a través del tiempo y del espacio. Gracias a ellas podemos conocer lo que pensaron personas que vivieron hace siglos, aprender de experiencias que nunca tendremos y comunicarnos con quienes están lejos. Sin embargo, en un mundo lleno de estímulos rápidos y contenidos breves, muchas personas han ido dejando de lado el hábito de leer con calma y profundidad. Por eso vale la pena detenerse a pensar por qué la lectura sigue siendo tan importante y qué beneficios aporta a nuestra vida diaria.</p>
+ 
+      <p class="doc-paragraph">En primer lugar, la lectura amplía el conocimiento. Cada libro, artículo o texto que leemos nos entrega información nueva, ya sea sobre ciencia, historia, arte, tecnología o la vida de otras personas. A diferencia de otros medios, la lectura nos permite avanzar a nuestro propio ritmo, volver atrás cuando no entendemos algo y reflexionar sobre lo que vamos descubriendo. Esto hace que el aprendizaje sea más profundo y duradero. Una persona que lee con frecuencia suele tener más herramientas para comprender el mundo que la rodea, para formarse opiniones propias y para tomar decisiones informadas.</p>
+ 
+      <p class="doc-paragraph">En segundo lugar, leer mejora la forma en que nos comunicamos. Al leer, nos encontramos con palabras que no usamos a diario, con distintas formas de construir oraciones y con variadas maneras de expresar una idea. Poco a poco, sin darnos cuenta, ese vocabulario y esas estructuras pasan a formar parte de nuestra manera de hablar y escribir. Por eso, quienes leen habitualmente suelen expresarse con mayor claridad, cometen menos errores de ortografía y tienen más facilidad para explicar lo que piensan. Esta habilidad es útil en todos los ámbitos: en el colegio, en el trabajo, en las relaciones personales e incluso al momento de resolver un problema cotidiano.</p>
+ 
+      <p class="doc-paragraph">Otro beneficio importante de la lectura es que estimula la imaginación y la creatividad. Cuando leemos una novela o un cuento, nuestra mente construye por sí sola los paisajes, los rostros de los personajes y los sonidos de cada escena. Ningún texto nos entrega la imagen completa; somos nosotros quienes la completamos con nuestra propia imaginación. Este ejercicio constante fortalece la capacidad de crear, de inventar soluciones y de pensar de forma diferente. No es casualidad que muchas personas creativas, como escritores, artistas o inventores, hayan sido grandes lectores.</p>
+ 
+      <p class="doc-paragraph">La lectura también desarrolla la empatía. Al ponernos en el lugar de un personaje, conocemos sus miedos, sus sueños y sus conflictos. Podemos acompañar a alguien que vive en otro país, en otra época o en una situación muy distinta a la nuestra. Esta experiencia nos ayuda a comprender que existen muchas formas de ver la vida y que detrás de cada persona hay una historia. Así, la lectura puede convertirse en una herramienta para la tolerancia y el respeto, valores fundamentales para convivir en sociedad.</p>
+ 
+      <p class="doc-paragraph">Además, leer puede ser una forma de descanso y bienestar. En medio de la rutina, abrir un libro permite desconectarse por un momento de las preocupaciones y sumergirse en otro mundo. Muchas personas encuentran en la lectura un espacio de tranquilidad, una pausa que les ayuda a relajarse antes de dormir o a despejar la mente después de un día agitado. A diferencia de otras actividades de entretenimiento, la lectura exige concentración, lo que la convierte en un buen ejercicio para entrenar la atención en una época llena de distracciones.</p>
+ 
+      <p class="doc-paragraph">A pesar de todos estos beneficios, no siempre es fácil crear el hábito de leer. La falta de tiempo, el cansancio o la costumbre de usar el celular pueden hacer que la lectura quede en segundo plano. Sin embargo, existen algunas estrategias sencillas para incorporarla a la vida diaria. Una de ellas es comenzar con textos que realmente nos interesen, sin sentir la obligación de leer libros difíciles o largos. También ayuda reservar un momento fijo del día, aunque sean solo quince minutos, para dedicarlo a la lectura. Llevar siempre un libro o tener uno descargado en el teléfono permite aprovechar los tiempos de espera, como un viaje en micro o una fila. Por último, compartir lecturas con amigos o familiares puede hacer la experiencia más entretenida y motivadora.</p>
+ 
+      <p class="doc-paragraph">El papel de la familia y de la escuela es clave en este proceso. Cuando los niños crecen rodeados de libros y ven a los adultos leer, es más probable que ellos también desarrollen el gusto por la lectura. Leer cuentos en voz alta, visitar bibliotecas y conversar sobre lo leído son acciones simples que pueden marcar una gran diferencia. En el colegio, en tanto, es importante que la lectura no se viva solo como una obligación, sino como una oportunidad de descubrir historias e ideas que despierten la curiosidad de los estudiantes.</p>
+ 
+      <p class="doc-paragraph">En conclusión, la lectura es mucho más que una habilidad escolar: es una herramienta para conocer, comunicarse, imaginar, comprender a los demás y cuidar nuestro bienestar. En un mundo que avanza cada vez más rápido, darse el tiempo de leer es un acto valioso que enriquece la vida de cada persona y de la sociedad en su conjunto. Cada página leída es una puerta abierta a nuevas ideas, y depende de cada uno de nosotros decidir cruzarla.</p>
+      <div class="doc-end"></div>
+    </section>
+  </main>
+  <a class="feedback" href="#comentarios"><span>▰</span>Improve this page</a>
 </body>
 </html>
+ 
